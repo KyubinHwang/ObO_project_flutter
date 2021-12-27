@@ -11,7 +11,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   List _pages = [
-    Text('TimeLine'),
+    Text('TimeLine_Page'),
     Text('Diary'),
     Text('Report'),
     Text('MyPage'),
