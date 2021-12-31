@@ -26,36 +26,67 @@ class _MainPageState extends State<MainPage> {
             )),
           ),
           Positioned(child: _buildAppBar()),
-          DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            maxChildSize: 0.85,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                  height: 300,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: ListView(
-                    controller: scrollController,
-                    children: [
-                      CalendarTimeline(
-                        showYears: true,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now().add(Duration(days: -365)),
-                        lastDate: DateTime.now().add(Duration(days: 365)),
-                        onDateSelected: (date) => print(date),
-                        leftMargin: 20,
-                        monthColor: Colors.black,
-                        dayColor: Colors.black,
-                        activeDayColor: Colors.white,
-                        activeBackgroundDayColor: Colors.deepPurple[100],
-                        dotsColor: Colors.black,
-                        selectableDayPredicate: (date) => date.day != 23,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(24.0),
+                        topLeft: Radius.circular(24.0),
+                      )),
+                  child: DefaultTabController(
+                    length: 2,
+                    child: Scaffold(
+                      appBar: AppBar(
+                        backgroundColor: Colors.white70,
+                        bottom: TabBar(
+                          tabs: [
+                            Tab(icon: Icon(Icons.directions_car)),
+                            Tab(icon: Icon(Icons.directions_transit)),
+                          ],
+                        ),
                       ),
-                    ],
-                  ));
-            },
-          ),
+                      body: Center(
+                          child: TabBarView(children: <Widget>[
+                        Tab(icon: Icon(Icons.directions_car)),
+                        Tab(icon: Icon(Icons.directions_transit)),
+                      ])),
+                    ),
+                  )))
+          // DraggableScrollableSheet(
+          //   initialChildSize: 0.4,
+          //   maxChildSize: 0.85,
+          //   builder: (BuildContext context, ScrollController scrollController) {
+          //     return Container(
+          //         decoration: BoxDecoration(
+          //           color: Colors.white,
+          //           borderRadius: BorderRadius.circular(30),
+          //         ),
+          //         child: ListView(
+          //           controller: scrollController,
+          //           children: [
+          //             CalendarTimeline(
+          //               showYears: true,
+          //               initialDate: DateTime.now(),
+          //               firstDate: DateTime.now().add(Duration(days: -365)),
+          //               lastDate: DateTime.now().add(Duration(days: 365)),
+          //               onDateSelected: (date) => print(date),
+          //               leftMargin: 20,
+          //               monthColor: Colors.black,
+          //               dayColor: Colors.black,
+          //               activeDayColor: Colors.white,
+          //               activeBackgroundDayColor: Colors.deepPurple[100],
+          //               dotsColor: Colors.black,
+          //               selectableDayPredicate: (date) => date.day != 23,
+          //             ),
+          //           ],
+          //         ));
+          //   },
+          // ),
         ],
       ),
     ));
