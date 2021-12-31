@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calendar_timeline/calendar_timeline.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -26,20 +27,33 @@ class _MainPageState extends State<MainPage> {
           ),
           Positioned(child: _buildAppBar()),
           DraggableScrollableSheet(
+            initialChildSize: 0.4,
+            maxChildSize: 0.85,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(title: Text('Item $index'));
-                  },
-                ),
-              );
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: ListView(
+                    controller: scrollController,
+                    children: [
+                      CalendarTimeline(
+                        showYears: true,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now().add(Duration(days: -365)),
+                        lastDate: DateTime.now().add(Duration(days: 365)),
+                        onDateSelected: (date) => print(date),
+                        leftMargin: 20,
+                        monthColor: Colors.black,
+                        dayColor: Colors.black,
+                        activeDayColor: Colors.white,
+                        activeBackgroundDayColor: Colors.deepPurple[100],
+                        dotsColor: Colors.black,
+                        selectableDayPredicate: (date) => date.day != 23,
+                      ),
+                    ],
+                  ));
             },
           ),
         ],
