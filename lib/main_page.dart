@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -39,19 +40,14 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(fontSize: 25, color: Colors.white))
                 ]),
           ),
-          Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                  height: 300,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(24.0),
-                        topLeft: Radius.circular(24.0),
-                      )),
-                  child: DefaultTabController(
+          SlidingSheet(
+            elevation: 10,
+            cornerRadius: 16,
+            builder: (context, state) {
+              return SizedBox(
+                  height: 750,
+                  child: Center(
+                      child: DefaultTabController(
                     length: 2,
                     child: Scaffold(
                       appBar: AppBar(
@@ -95,7 +91,9 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ])),
                     ),
-                  )))
+                  )));
+            },
+          ),
           // DraggableScrollableSheet(
           //   initialChildSize: 0.4,
           //   maxChildSize: 0.85,
