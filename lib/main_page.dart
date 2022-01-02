@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -27,12 +26,26 @@ class _MainPageState extends State<MainPage> {
           ),
           Positioned(child: _buildAppBar()),
           Positioned(
+            left: 30,
+            top: 180,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "황규빈 님,",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                  Text("당신의 하루를 ON 해보세요",
+                      style: TextStyle(fontSize: 25, color: Colors.white))
+                ]),
+          ),
+          Positioned(
               left: 0,
               right: 0,
               bottom: 0,
               child: Container(
                   height: 300,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(24.0),
@@ -42,18 +55,44 @@ class _MainPageState extends State<MainPage> {
                     length: 2,
                     child: Scaffold(
                       appBar: AppBar(
-                        backgroundColor: Colors.white70,
-                        bottom: TabBar(
+                        backgroundColor: Colors.white,
+                        bottom: const TabBar(
                           tabs: [
-                            Tab(icon: Icon(Icons.directions_car)),
-                            Tab(icon: Icon(Icons.directions_transit)),
+                            Tab(
+                              icon: Image(
+                                  width: 35,
+                                  image: AssetImage(
+                                    './assets/timeline_icon.png',
+                                  )),
+                            ),
+                            Tab(
+                              icon: Image(
+                                  width: 35,
+                                  image: AssetImage('./assets/diary_icon.png')),
+                            ),
                           ],
                         ),
                       ),
                       body: Center(
                           child: TabBarView(children: <Widget>[
-                        Tab(icon: Icon(Icons.directions_car)),
-                        Tab(icon: Icon(Icons.directions_transit)),
+                        Tab(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: const [
+                                Text("타임라인"),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: const [
+                                Text("타임라인"),
+                              ],
+                            ),
+                          ),
+                        ),
                       ])),
                     ),
                   )))
@@ -103,11 +142,13 @@ class _MainPageState extends State<MainPage> {
       actions: <Widget>[
         IconButton(
           onPressed: () {},
-          icon: const Image(image: AssetImage('./assets/report_icon.png')),
+          icon: const Image(
+              width: 25, image: AssetImage('./assets/report_icon.png')),
         ),
         IconButton(
           onPressed: () {},
-          icon: Image.asset('./assets/alarm_icon.png'),
+          icon: const Image(
+              width: 25, image: AssetImage('./assets/alarm_icon.png')),
         ),
       ],
     );
