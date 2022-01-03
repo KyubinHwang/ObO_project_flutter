@@ -20,7 +20,13 @@ class _MainPageState extends State<MainPage> {
           Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-              colors: [Colors.deepPurple, Colors.pink],
+              colors: [
+                Color(0xff3B4383),
+                Color(0xff5D4F83),
+                Color(0xffA67E90),
+                Color(0xffE19EA0),
+                Color(0xffF2B18E),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             )),
@@ -28,7 +34,7 @@ class _MainPageState extends State<MainPage> {
           Positioned(child: _buildAppBar()),
           Positioned(
             left: 30,
-            top: 180,
+            top: 150,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -41,7 +47,7 @@ class _MainPageState extends State<MainPage> {
                 ]),
           ),
           SlidingSheet(
-            elevation: 10,
+            elevation: 5,
             cornerRadius: 16,
             builder: (context, state) {
               return SizedBox(
@@ -94,36 +100,6 @@ class _MainPageState extends State<MainPage> {
                   )));
             },
           ),
-          // DraggableScrollableSheet(
-          //   initialChildSize: 0.4,
-          //   maxChildSize: 0.85,
-          //   builder: (BuildContext context, ScrollController scrollController) {
-          //     return Container(
-          //         decoration: BoxDecoration(
-          //           color: Colors.white,
-          //           borderRadius: BorderRadius.circular(30),
-          //         ),
-          //         child: ListView(
-          //           controller: scrollController,
-          //           children: [
-          //             CalendarTimeline(
-          //               showYears: true,
-          //               initialDate: DateTime.now(),
-          //               firstDate: DateTime.now().add(Duration(days: -365)),
-          //               lastDate: DateTime.now().add(Duration(days: 365)),
-          //               onDateSelected: (date) => print(date),
-          //               leftMargin: 20,
-          //               monthColor: Colors.black,
-          //               dayColor: Colors.black,
-          //               activeDayColor: Colors.white,
-          //               activeBackgroundDayColor: Colors.deepPurple[100],
-          //               dotsColor: Colors.black,
-          //               selectableDayPredicate: (date) => date.day != 23,
-          //             ),
-          //           ],
-          //         ));
-          //   },
-          // ),
         ],
       ),
     ));
