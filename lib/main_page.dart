@@ -73,12 +73,13 @@ class _MainPageState extends State<MainPage> {
                           elevation: 0.0,
                           backgroundColor: Colors.white,
                           bottom: TabBar(
+                            indicatorColor: Colors.white,
                             labelColor: Colors.black,
                             isScrollable: true,
                             tabs: List.generate(7, (index) {
                               var now = DateTime.now();
-                              var date =
-                                  DateTime(now.month, now.day + index, now.day);
+                              var date = DateTime(
+                                  now.year, now.month, now.day + index);
                               String dateDisplay =
                                   DateFormat('MM/dd').format(date);
                               return Tab(text: dateDisplay);
@@ -225,9 +226,14 @@ class _MainPageState extends State<MainPage> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              toolbarHeight: 0.0,
+              toolbarHeight: 10.0,
               backgroundColor: Colors.white,
               bottom: const TabBar(
+                indicatorColor: Color(0xff3B4383),
+                indicatorWeight: 3.0,
+                indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 3.0),
+                    insets: EdgeInsets.symmetric(horizontal: 50.0)),
                 tabs: [
                   Tab(
                     icon: Image(
@@ -259,7 +265,7 @@ class _MainPageState extends State<MainPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: const [
-                      Text("타임라인"),
+                      Text("다이어리"),
                     ],
                   ),
                 ),
