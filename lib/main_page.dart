@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+
+import 'package:obo_project/timeline/timeline_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AssetImage switching = const AssetImage('./assets/timeline_icon.png');
+
+  late TabController _tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -56,152 +62,41 @@ class _MainPageState extends State<MainPage> {
             cornerRadius: 16,
             builder: (context, state) {
               return Column(
-                children: [
-                  DatePicker(
-                    DateTime.now(),
-                    height: 100,
-                    width: 80,
-                    initialSelectedDate: DateTime.now(),
-                    selectionColor: Colors.black,
-                    selectedTextColor: Colors.white,
+                children: <Widget>[
+                  SizedBox(
+                    height: 750,
+                    child: DefaultTabController(
+                      length: 7,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          toolbarHeight: 0.0,
+                          elevation: 0.0,
+                          backgroundColor: Colors.white,
+                          bottom: TabBar(
+                            labelColor: Colors.black,
+                            isScrollable: true,
+                            tabs: List.generate(7, (index) {
+                              var now = DateTime.now();
+                              var date =
+                                  DateTime(now.month, now.day + index, now.day);
+                              String dateDisplay =
+                                  DateFormat('MM/dd').format(date);
+                              return Tab(text: dateDisplay);
+                            }, growable: true),
+                          ),
+                        ),
+                        body: TabBarView(children: <Widget>[
+                          makeTabController(),
+                          makeTabController(),
+                          makeTabController(),
+                          makeTabController(),
+                          makeTabController(),
+                          makeTabController(),
+                          makeTabController(),
+                        ]),
+                      ),
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                changing(const AssetImage(
-                                  './assets/timeline_icon.png',
-                                ));
-                              },
-                              child: const Image(
-                                  width: 35,
-                                  image: AssetImage(
-                                    './assets/timeline_icon.png',
-                                  )),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(color: Colors.red),
-                              ),
-                            ),
-                            Container(
-                              height: 4,
-                              width: 80,
-                              decoration: (switching ==
-                                      const AssetImage(
-                                          './assets/timeline_icon.png'))
-                                  ? const BoxDecoration(
-                                      gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xff3B4383),
-                                        Color(0xff5D4F83),
-                                        Color(0xffA67E90),
-                                      ],
-                                      begin: Alignment.centerRight,
-                                      end: Alignment.centerLeft,
-                                    ))
-                                  : const BoxDecoration(
-                                      color: Colors.transparent),
-                            )
-                          ]),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                changing(const AssetImage(
-                                  './assets/diary_icon.png',
-                                ));
-                              },
-                              child: const Image(
-                                  width: 35,
-                                  image: AssetImage(
-                                    './assets/diary_icon.png',
-                                  )),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(color: Colors.red),
-                              ),
-                            ),
-                            Container(
-                              height: 4,
-                              width: 80,
-                              decoration: (switching ==
-                                      const AssetImage(
-                                          './assets/diary_icon.png'))
-                                  ? const BoxDecoration(
-                                      gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xff3B4383),
-                                        Color(0xff5D4F83),
-                                        Color(0xffA67E90),
-                                      ],
-                                      begin: Alignment.centerRight,
-                                      end: Alignment.centerLeft,
-                                    ))
-                                  : const BoxDecoration(
-                                      color: Colors.transparent),
-                            ),
-                          ]),
-                    ],
-                  ),
-                  // SizedBox(
-                  //     height: 650,
-                  //     child: Center(
-                  //         child: DefaultTabController(
-                  //       length: 2,
-                  //       child: Scaffold(
-                  //         resizeToAvoidBottomInset: false,
-                  //         appBar: AppBar(
-                  //           backgroundColor: Colors.white,
-                  //           bottom: const TabBar(
-                  //             tabs: [
-                  //               Tab(
-                  //                 icon: Image(
-                  //                     width: 35,
-                  //                     image: AssetImage(
-                  //                       './assets/timeline_icon.png',
-                  //                     )),
-                  //               ),
-                  //               Tab(
-                  //                 icon: Image(
-                  //                     width: 35,
-                  //                     image: AssetImage(
-                  //                         './assets/diary_icon.png')),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         body: Center(
-                  //             child: TabBarView(children: <Widget>[
-                  //           Tab(
-                  //             child: SingleChildScrollView(
-                  //               child: Column(
-                  //                 children: const [
-                  //                   Text("타임라인"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           Tab(
-                  //             child: SingleChildScrollView(
-                  //               child: Column(
-                  //                 children: const [
-                  //                   Text("타임라인"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ])),
-                  //       ),
-                  //     ))),
                 ],
               );
             },
@@ -234,8 +129,143 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  makeTabView() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          InkWell(
+            onTap: () {
+              changing(const AssetImage(
+                './assets/timeline_icon.png',
+              ));
+            },
+            child: const Image(
+                width: 35,
+                image: AssetImage(
+                  './assets/timeline_icon.png',
+                )),
+          ),
+          const SizedBox(
+            height: 10,
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: Colors.red),
+            ),
+          ),
+          Container(
+            height: 4,
+            width: 80,
+            decoration:
+                (switching == const AssetImage('./assets/timeline_icon.png'))
+                    ? const BoxDecoration(
+                        gradient: LinearGradient(
+                        colors: [
+                          Color(0xff3B4383),
+                          Color(0xff5D4F83),
+                          Color(0xffA67E90),
+                        ],
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                      ))
+                    : const BoxDecoration(color: Colors.transparent),
+          )
+        ]),
+        Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          InkWell(
+            onTap: () {
+              changing(const AssetImage(
+                './assets/diary_icon.png',
+              ));
+            },
+            child: const Image(
+                width: 35,
+                image: AssetImage(
+                  './assets/diary_icon.png',
+                )),
+          ),
+          const SizedBox(
+            height: 10,
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: Colors.red),
+            ),
+          ),
+          Container(
+            height: 4,
+            width: 80,
+            decoration:
+                (switching == const AssetImage('./assets/diary_icon.png'))
+                    ? const BoxDecoration(
+                        gradient: LinearGradient(
+                        colors: [
+                          Color(0xff3B4383),
+                          Color(0xff5D4F83),
+                          Color(0xffA67E90),
+                        ],
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                      ))
+                    : const BoxDecoration(color: Colors.transparent),
+          ),
+        ]),
+      ],
+    );
+  }
+
   changing(AssetImage switchingImage) {
     switching = switchingImage;
     setState(() {});
+  }
+
+  makeTabController() {
+    return SizedBox(
+        height: 650,
+        child: Center(
+            child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              toolbarHeight: 0.0,
+              backgroundColor: Colors.white,
+              bottom: const TabBar(
+                tabs: [
+                  Tab(
+                    icon: Image(
+                        width: 35,
+                        image: AssetImage(
+                          './assets/timeline_icon.png',
+                        )),
+                  ),
+                  Tab(
+                    icon: Image(
+                        width: 35,
+                        image: AssetImage('./assets/diary_icon.png')),
+                  ),
+                ],
+              ),
+            ),
+            body: Center(
+                child: TabBarView(children: <Widget>[
+              Tab(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: const [
+                      TimeLine(),
+                    ],
+                  ),
+                ),
+              ),
+              Tab(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: const [
+                      Text("타임라인"),
+                    ],
+                  ),
+                ),
+              ),
+            ])),
+          ),
+        )));
   }
 }

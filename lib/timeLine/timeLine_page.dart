@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class TimeLine extends StatefulWidget {
   const TimeLine({Key? key}) : super(key: key);
@@ -10,41 +11,57 @@ class TimeLine extends StatefulWidget {
 class _TimeLineState extends State<TimeLine> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        floatingActionButton: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: new IconTheme(
-            data: new IconThemeData(color: Colors.purple[100]),
-            child: new Icon(Icons.create_outlined),
-          ),
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TimelineTile(
+              alignment: TimelineAlign.manual,
+              lineXY: 0.3,
+              indicatorStyle: IndicatorStyle(
+                  color: Color(0xff5D4F83), height: 30, width: 30),
+              beforeLineStyle: LineStyle(
+                color: Color(0xff5D4F83),
+              ),
+              endChild: Container(
+                height: 50,
+                width: 80,
+                color: Colors.black45,
+              ),
+            ),
+            TimelineTile(
+              alignment: TimelineAlign.manual,
+              lineXY: 0.3,
+              indicatorStyle: IndicatorStyle(
+                  color: Color(0xff5D4F83), height: 30, width: 30),
+              beforeLineStyle: LineStyle(
+                color: Color(0xff5D4F83),
+              ),
+              endChild: Container(
+                height: 50,
+                width: 80,
+                color: Colors.black45,
+              ),
+            ),
+            TimelineTile(
+              alignment: TimelineAlign.manual,
+              lineXY: 0.3,
+              indicatorStyle: IndicatorStyle(
+                  color: Color(0xff5D4F83), height: 30, width: 30),
+              beforeLineStyle: LineStyle(
+                color: Color(0xff5D4F83),
+              ),
+              endChild: Container(
+                height: 50,
+                width: 80,
+                color: Colors.black45,
+              ),
+            )
+          ],
         ),
-        Padding(
-          padding: EdgeInsets.all(5.0),
-        ),
-        FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: new IconTheme(
-            data: new IconThemeData(color: Colors.purple[100]),
-            child: new Icon(Icons.calendar_today_outlined),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(5.0),
-        ),
-        FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: new IconTheme(
-            data: new IconThemeData(color: Colors.purple[100]),
-            child: new Icon(Icons.access_alarm_outlined),
-          ),
-        ),
-      ],
-    ));
+      ),
+    );
   }
 }
