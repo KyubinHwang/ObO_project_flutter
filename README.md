@@ -1,16 +1,38 @@
-# obo_project
+# 🔥🍫 ObO_project 🍫🔥
+경증 우울증 개선을 위한 생활패턴 관리 어플리케이션
 
-A new Flutter project.
+## 💎 개요
 
-## Getting Started
+- ㅇㅁㄴㅇㄹ
+- 품ㄴ아핀아
 
-This project is a starting point for a Flutter application.
+## 💎 프로젝트 소개
 
-A few resources to get you started if this is your first Flutter project:
+- 아이디어 소개
+  - ㅇ
+- 시작 배경
+  - df
+  - ㅇㄹㅁㅇ
+- 프로젝트 기간
+  - ㅇㅁㅇㄹ
+- 사용 프레임워크
+  - 플러터(flutter)
+  - 참고(ㅁㄴㅇㄹ, ㅁㅇㄴㄹㅁㄴ)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 💎 기능 소개
+- 메인 화면
+  - ㅇㅁㄹ
+  - ㅁㄹㄴㅇ
+  - ㅁㅇㄹ
+  - ㅁㄴㅇㄹ
+- 타임라인 화면
+  - ㅁㄹ
+  - ㅁㅇㄹ
+- 다이어리 화면
+  - ㅇㄹ
+  - ㅁㄴㅇㄹ
+## 💎 UI
+- 스플래시 화면
+- 메인 화면
+- 타임라인 화면 세부
+- 다이어리 화면 세부
