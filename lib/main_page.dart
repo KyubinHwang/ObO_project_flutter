@@ -61,44 +61,43 @@ class _MainPageState extends State<MainPage> {
             elevation: 5,
             cornerRadius: 16,
             builder: (context, state) {
-              return Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 750,
-                    child: DefaultTabController(
-                      length: 7,
-                      child: Scaffold(
-                        appBar: AppBar(
-                          toolbarHeight: 0.0,
-                          elevation: 0.0,
-                          backgroundColor: Colors.white,
-                          bottom: TabBar(
-                            indicatorColor: Colors.white,
-                            labelColor: Colors.black,
-                            isScrollable: true,
-                            tabs: List.generate(7, (index) {
-                              var now = DateTime.now();
-                              var date = DateTime(
-                                  now.year, now.month, now.day + index);
-                              String dateDisplay =
-                                  DateFormat('MM/dd').format(date);
-                              return Tab(text: dateDisplay);
-                            }, growable: true),
-                          ),
+              return SingleChildScrollView(
+                child: SizedBox(
+                  height: 750,
+                  child: DefaultTabController(
+                    length: 7,
+                    child: Scaffold(
+                      resizeToAvoidBottomInset: false,
+                      appBar: AppBar(
+                        toolbarHeight: 0.0,
+                        elevation: 0.0,
+                        backgroundColor: Colors.white,
+                        bottom: TabBar(
+                          indicatorColor: Colors.white,
+                          labelColor: Colors.black,
+                          isScrollable: true,
+                          tabs: List.generate(7, (index) {
+                            var now = DateTime.now();
+                            var date =
+                                DateTime(now.year, now.month, now.day + index);
+                            String dateDisplay =
+                                DateFormat('MM/dd').format(date);
+                            return Tab(text: dateDisplay);
+                          }, growable: true),
                         ),
-                        body: TabBarView(children: <Widget>[
-                          makeTabController(),
-                          makeTabController(),
-                          makeTabController(),
-                          makeTabController(),
-                          makeTabController(),
-                          makeTabController(),
-                          makeTabController(),
-                        ]),
                       ),
+                      body: TabBarView(children: <Widget>[
+                        makeTabController(),
+                        makeTabController(),
+                        makeTabController(),
+                        makeTabController(),
+                        makeTabController(),
+                        makeTabController(),
+                        makeTabController(),
+                      ]),
                     ),
                   ),
-                ],
+                ),
               );
             },
           ),
@@ -219,59 +218,54 @@ class _MainPageState extends State<MainPage> {
 
   makeTabController() {
     return SizedBox(
-        height: 650,
-        child: Center(
-            child: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              toolbarHeight: 10.0,
-              backgroundColor: Colors.white,
-              bottom: const TabBar(
-                indicatorColor: Color(0xff3B4383),
-                indicatorWeight: 3.0,
-                indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(width: 3.0),
-                    insets: EdgeInsets.symmetric(horizontal: 50.0)),
-                tabs: [
-                  Tab(
-                    icon: Image(
-                        width: 35,
-                        image: AssetImage(
-                          './assets/timeline_icon.png',
-                        )),
-                  ),
-                  Tab(
-                    icon: Image(
-                        width: 35,
-                        image: AssetImage('./assets/diary_icon.png')),
-                  ),
-                ],
+      height: 650,
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            toolbarHeight: 10.0,
+            backgroundColor: Colors.white,
+            bottom: const TabBar(
+              indicatorColor: Color(0xff3B4383),
+              indicatorWeight: 3.0,
+              indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide(width: 3.0),
+                  insets: EdgeInsets.symmetric(horizontal: 50.0)),
+              tabs: [
+                Tab(
+                  icon: Image(
+                      width: 35,
+                      image: AssetImage(
+                        './assets/timeline_icon.png',
+                      )),
+                ),
+                Tab(
+                  icon: Image(
+                      width: 35, image: AssetImage('./assets/diary_icon.png')),
+                ),
+              ],
+            ),
+          ),
+          body: Center(
+              child: TabBarView(children: <Widget>[
+            Tab(
+              child: SingleChildScrollView(
+                child: TimeLine(),
               ),
             ),
-            body: Center(
-                child: TabBarView(children: <Widget>[
-              Tab(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: const [
-                      TimeLine(),
-                    ],
-                  ),
+            Tab(
+              child: Scaffold(
+                body: Column(
+                  children: const [
+                    Text("다이어리"),
+                  ],
                 ),
               ),
-              Tab(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: const [
-                      Text("다이어리"),
-                    ],
-                  ),
-                ),
-              ),
-            ])),
-          ),
-        )));
+            ),
+          ])),
+        ),
+      ),
+    );
   }
 }
