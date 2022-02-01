@@ -1,11 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:flutter_timeline/indicator_position.dart';
-import 'package:flutter_timeline/timeline_theme.dart';
-import 'package:flutter_timeline/timeline_theme_data.dart';
 
 class TimeLine extends StatefulWidget {
   const TimeLine({Key? key}) : super(key: key);
@@ -20,9 +17,12 @@ class _TimeLineState extends State<TimeLine> {
     return Stack(children: [
       _buildTimeline(),
       Positioned(
-          child: FloatingActionButton(
-        onPressed: _addEvent,
-      ))
+        child: IconButton(
+          onPressed: _addEvent,
+          icon: Icon(Icons.border_color),
+          iconSize: 30,
+        ),
+      )
     ]);
   }
 
@@ -31,24 +31,12 @@ class _TimeLineState extends State<TimeLine> {
     events = [
       smallEventDisplay,
       plainEventDisplay,
-      TimelineEventDisplay(
-          child: Card(
-        child: TimelineEventCard(
-          title: Text("click the + button"),
-          content: Text("to add a new event item"),
-        ),
-      )),
     ];
   }
 
   TimelineEventDisplay get smallEventDisplay {
     return TimelineEventDisplay(
-        child: Card(
-          child: TimelineEventCard(
-            title: Text("click the + button"),
-            content: Text("to add a new event item"),
-          ),
-        ),
+        child: Card(),
         indicatorSize: 12,
         indicator: Container(
           width: 12,
@@ -79,7 +67,7 @@ class _TimeLineState extends State<TimeLine> {
         anchor: IndicatorPosition.top,
         indicatorOffset: Offset(0, 24),
         child: TimelineEventCard(
-          title: Text("multi\nline\ntitle\nawesome!"),
+          title: Text("timeline"),
           content: Text("someone commented on your timeline ${DateTime.now()}"),
         ),
         indicator: randomIndicator);
@@ -90,7 +78,10 @@ class _TimeLineState extends State<TimeLine> {
   Widget _buildTimeline() {
     return TimelineTheme(
         data: TimelineThemeData(
-            lineColor: Colors.blueAccent, itemGap: 100, lineGap: 0),
+          lineColor: Color(0xff5D4F83),
+          itemGap: 100,
+          lineGap: 0,
+        ),
         child: Timeline(
           anchor: IndicatorPosition.center,
           indicatorSize: 56,
