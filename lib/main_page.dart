@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AssetImage switching = const AssetImage('./assets/timeline_icon.png');
-
+  TimeLine tL = TimeLine();
   late TabController _tabController;
 
   @override

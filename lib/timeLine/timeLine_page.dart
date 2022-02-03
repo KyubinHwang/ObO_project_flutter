@@ -14,15 +14,33 @@ class TimeLine extends StatefulWidget {
 class _TimeLineState extends State<TimeLine> {
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    return Column(children: [
       _buildTimeline(),
-      Positioned(
-        child: IconButton(
-          onPressed: _addEvent,
-          icon: Icon(Icons.border_color),
-          iconSize: 30,
-        ),
-      )
+      Align(
+          alignment: Alignment(0.75, 0.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ]),
+            child: IconButton(
+              onPressed: _addEvent,
+              icon: Icon(Icons.border_color),
+              iconSize: 30,
+              color: Color(0xff5D4F83),
+            ),
+          ))
     ]);
   }
 
