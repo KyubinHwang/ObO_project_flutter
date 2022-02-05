@@ -13,8 +13,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AssetImage switching = const AssetImage('./assets/timeline_icon.png');
-  TimeLine tL = TimeLine();
-  late TabController _tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -55,46 +53,11 @@ class _MainPageState extends State<MainPage> {
           ),
           SlidingSheet(
             minHeight: 500,
-            elevation: 5,
+            elevation: 10,
             cornerRadius: 16,
             builder: (context, state) {
               return SingleChildScrollView(
-                child: SizedBox(
-                  height: 750,
-                  child: DefaultTabController(
-                    length: 7,
-                    child: Scaffold(
-                      resizeToAvoidBottomInset: false,
-                      appBar: AppBar(
-                        toolbarHeight: 0.0,
-                        elevation: 0.0,
-                        backgroundColor: Colors.white,
-                        bottom: TabBar(
-                          indicatorColor: Colors.white,
-                          labelColor: Colors.black,
-                          isScrollable: true,
-                          tabs: List.generate(7, (index) {
-                            var now = DateTime.now();
-                            var date =
-                                DateTime(now.year, now.month, now.day + index);
-                            String dateDisplay =
-                                DateFormat('MM/dd').format(date);
-                            return Tab(text: dateDisplay);
-                          }, growable: true),
-                        ),
-                      ),
-                      body: TabBarView(children: <Widget>[
-                        makeTabController(),
-                        makeTabController(),
-                        makeTabController(),
-                        makeTabController(),
-                        makeTabController(),
-                        makeTabController(),
-                        makeTabController(),
-                      ]),
-                    ),
-                  ),
-                ),
+                child: SizedBox(height: 700, child: makeTabController()),
               );
             },
           ),
@@ -126,142 +89,56 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  makeTabView() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          InkWell(
-            onTap: () {
-              changing(const AssetImage(
-                './assets/timeline_icon.png',
-              ));
-            },
-            child: const Image(
-                width: 35,
-                image: AssetImage(
-                  './assets/timeline_icon.png',
-                )),
-          ),
-          const SizedBox(
-            height: 10,
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: Colors.red),
-            ),
-          ),
-          Container(
-            height: 4,
-            width: 80,
-            decoration:
-                (switching == const AssetImage('./assets/timeline_icon.png'))
-                    ? const BoxDecoration(
-                        gradient: LinearGradient(
-                        colors: [
-                          Color(0xff3B4383),
-                          Color(0xff5D4F83),
-                          Color(0xffA67E90),
-                        ],
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                      ))
-                    : const BoxDecoration(color: Colors.transparent),
-          )
-        ]),
-        Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          InkWell(
-            onTap: () {
-              changing(const AssetImage(
-                './assets/diary_icon.png',
-              ));
-            },
-            child: const Image(
-                width: 35,
-                image: AssetImage(
-                  './assets/diary_icon.png',
-                )),
-          ),
-          const SizedBox(
-            height: 10,
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: Colors.red),
-            ),
-          ),
-          Container(
-            height: 4,
-            width: 80,
-            decoration:
-                (switching == const AssetImage('./assets/diary_icon.png'))
-                    ? const BoxDecoration(
-                        gradient: LinearGradient(
-                        colors: [
-                          Color(0xff3B4383),
-                          Color(0xff5D4F83),
-                          Color(0xffA67E90),
-                        ],
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                      ))
-                    : const BoxDecoration(color: Colors.transparent),
-          ),
-        ]),
-      ],
-    );
-  }
-
-  changing(AssetImage switchingImage) {
-    switching = switchingImage;
-    setState(() {});
-  }
-
   makeTabController() {
-    return SizedBox(
-      height: 650,
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            toolbarHeight: 10.0,
-            backgroundColor: Colors.white,
-            bottom: const TabBar(
-              indicatorColor: Color(0xff3B4383),
-              indicatorWeight: 3.0,
-              indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(width: 3.0),
-                  insets: EdgeInsets.symmetric(horizontal: 50.0)),
-              tabs: [
-                Tab(
-                  icon: Image(
-                      width: 35,
-                      image: AssetImage(
-                        './assets/timeline_icon.png',
-                      )),
-                ),
-                Tab(
-                  icon: Image(
-                      width: 35, image: AssetImage('./assets/diary_icon.png')),
-                ),
-              ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text(
+            DateFormat.MEd().format(DateTime.now()),
+            style: const TextStyle(color: Color(0xff3B4383)),
+          ),
+          toolbarHeight: 30.0,
+          backgroundColor: Colors.white,
+          bottom: const TabBar(
+            indicatorColor: Color(0xff3B4383),
+            indicatorWeight: 3.0,
+            indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(width: 3.0),
+                insets: EdgeInsets.symmetric(horizontal: 50.0)),
+            tabs: [
+              Tab(
+                icon: Image(
+                    width: 35,
+                    image: AssetImage(
+                      './assets/timeline_icon.png',
+                    )),
+              ),
+              Tab(
+                icon: Image(
+                    width: 35, image: AssetImage('./assets/diary_icon.png')),
+              ),
+            ],
+          ),
+        ),
+        body: Center(
+            child: TabBarView(children: <Widget>[
+          const Tab(
+            child: SingleChildScrollView(
+              child: TimeLine(),
             ),
           ),
-          body: Center(
-              child: TabBarView(children: <Widget>[
-            Tab(
-              child: SingleChildScrollView(
-                child: TimeLine(),
+          Tab(
+            child: Scaffold(
+              body: Column(
+                children: const [
+                  Text("다이어리"),
+                ],
               ),
             ),
-            Tab(
-              child: Scaffold(
-                body: Column(
-                  children: const [
-                    Text("다이어리"),
-                  ],
-                ),
-              ),
-            ),
-          ])),
-        ),
+          ),
+        ])),
       ),
     );
   }

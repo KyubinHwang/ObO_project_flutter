@@ -37,13 +37,14 @@ class _TimeLineState extends State<TimeLine> {
             child: IconButton(
               onPressed: _addEvent,
               icon: Icon(Icons.border_color),
-              iconSize: 30,
+              iconSize: 32,
               color: Color(0xff5D4F83),
             ),
           ))
     ]);
   }
 
+  @override
   void initState() {
     super.initState();
     events = [
@@ -59,25 +60,8 @@ class _TimeLineState extends State<TimeLine> {
         indicator: Container(
           width: 12,
           height: 12,
-          decoration: BoxDecoration(color: Colors.blueAccent),
+          decoration: BoxDecoration(color: Color(0xff5D4F83)),
         ));
-  }
-
-  Widget get randomIndicator {
-    var candidates = [
-      TimelineDots.of(context).circleIcon,
-      Container(
-        width: 16,
-        height: 16,
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-        ),
-      ),
-    ];
-    final _random = new Random();
-    var element = candidates[_random.nextInt(candidates.length)];
-    return element;
   }
 
   TimelineEventDisplay get plainEventDisplay {
@@ -85,10 +69,11 @@ class _TimeLineState extends State<TimeLine> {
         anchor: IndicatorPosition.top,
         indicatorOffset: Offset(0, 24),
         child: TimelineEventCard(
+          padding: const EdgeInsets.only(left: 60, top: 70),
           title: Text("timeline"),
-          content: Text("someone commented on your timeline ${DateTime.now()}"),
+          content: Text("${DateTime.now()}"),
         ),
-        indicator: randomIndicator);
+        indicator: TimelineDots.of(context).circleIcon);
   }
 
   late List<TimelineEventDisplay> events;
