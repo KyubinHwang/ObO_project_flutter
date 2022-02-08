@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:flutter_timeline/indicator_position.dart';
@@ -14,34 +12,33 @@ class TimeLine extends StatefulWidget {
 class _TimeLineState extends State<TimeLine> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      _buildTimeline(),
-      Align(
-          alignment: Alignment(0.75, 0.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ]),
-            child: IconButton(
-              onPressed: _addEvent,
-              icon: Icon(Icons.border_color),
-              iconSize: 32,
-              color: Color(0xff5D4F83),
-            ),
-          ))
-    ]);
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addEvent,
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.border_color,
+          color: Color(0xff5D4F83),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          _buildTimeline(),
+          Align(
+              alignment: Alignment(0.75, 0.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50)),
+                ),
+              ))
+        ]),
+      ),
+    );
   }
 
   @override
