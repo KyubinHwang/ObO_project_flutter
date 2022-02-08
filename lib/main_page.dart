@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 import 'package:obo_project/timeline/timeline_page.dart';
+import 'package:obo_project/diary/diary_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -97,9 +98,9 @@ class _MainPageState extends State<MainPage> {
         appBar: AppBar(
           title: Text(
             DateFormat.MEd().format(DateTime.now()),
-            style: const TextStyle(color: Color(0xff3B4383)),
+            style: const TextStyle(color: Color(0xff3B4383), fontSize: 20),
           ),
-          toolbarHeight: 30.0,
+          toolbarHeight: 20.0,
           backgroundColor: Colors.white,
           bottom: const TabBar(
             indicatorColor: Color(0xff3B4383),
@@ -122,21 +123,13 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
         ),
-        body: Center(
+        body: const Center(
             child: TabBarView(children: <Widget>[
-          const Tab(
-            child: SingleChildScrollView(
-              child: TimeLine(),
-            ),
+          Tab(
+            child: TimeLine(),
           ),
           Tab(
-            child: Scaffold(
-              body: Column(
-                children: const [
-                  Text("다이어리"),
-                ],
-              ),
-            ),
+            child: Diary(),
           ),
         ])),
       ),
