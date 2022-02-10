@@ -23,6 +23,13 @@ class _TimeLineState extends State<TimeLine> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
+          const Text(
+            "오늘의 ON",
+            style: TextStyle(
+              fontSize: 20,
+              color: Color(0xff5D4F83),
+            ),
+          ),
           _buildTimeline(),
           Align(
               alignment: Alignment(0.75, 0.0),
