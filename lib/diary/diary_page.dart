@@ -1,6 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:obo_project/timeline/timeline_page.dart';
+import 'package:cupertino_date_textbox/cupertino_date_textbox.dart';
 
 class Diary extends StatefulWidget {
   const Diary({Key? key}) : super(key: key);
@@ -9,9 +10,11 @@ class Diary extends StatefulWidget {
   _DiaryState createState() => _DiaryState();
 }
 
-class _DiaryState extends State<Diary> {
+class _DiaryState extends State<Diary> with AutomaticKeepAliveClientMixin {
   List todos = [];
+  List todosDate = [];
   String input = "";
+  DateTime _selectedDateTime = DateTime.now();
 
   @override
   void initState() {
@@ -20,6 +23,10 @@ class _DiaryState extends State<Diary> {
     todos.add("정보처리기사 공부");
     todos.add("알고리즘 풀기");
     todos.add("은행 가기");
+    todosDate.add("2022-02-14");
+    todosDate.add("2022-02-16");
+    todosDate.add("2022-02-17");
+    todosDate.add("2022-02-19");
   }
 
   Widget build(BuildContext context) {
@@ -32,38 +39,37 @@ class _DiaryState extends State<Diary> {
           itemCount: todos.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
-              elevation: 4,
-              margin: EdgeInsets.all(8),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: ListTile(
-                  title: Text(todos[index]),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            setState(() {
-                              todos.removeAt(index);
-                            });
-                          }),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.check)),
-                    ],
-                  )
-
-                  // IconButton(
-                  //     icon: const Icon(
-                  //       Icons.delete_outline_outlined,
-                  //       color: Color(0xff5D4F83),
-                  //     ),
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         todos.removeAt(index);
-                  //       });
-                  //     }),
-                  ),
-            );
+                elevation: 4,
+                margin: EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                child: StatefulBuilder(
+                  builder: (context, _setState) => ListTile(
+                      title: Text(todos[index]),
+                      subtitle: Text(todosDate[index]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                setState(() {
+                                  todos.removeAt(index);
+                                });
+                              }),
+                          Checkbox(
+                            activeColor: Color(0xffA67E90),
+                            shape: const CircleBorder(),
+                            value: _isChecked,
+                            onChanged: (bool? value) {
+                              _setState(() {
+                                _isChecked = value!;
+                              });
+                            },
+                          )
+                        ],
+                      )),
+                ));
           }),
     );
   }
@@ -74,12 +80,17 @@ class _DiaryState extends State<Diary> {
       onPressed: () {
         showModalBottomSheet(
             context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0)),
+            ),
             builder: (BuildContext context) => Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 75),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Add Task!!",
                       style: TextStyle(
                           color: Colors.black,
@@ -107,6 +118,16 @@ class _DiaryState extends State<Diary> {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                          ),
+                          child: CupertinoDateTextBox(
+                            initialValue: DateTime.now(),
+                            onDateChange: onDateChangeCallback,
+                            hintText: 'Hint Text',
+                          ),
+                        ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 15.0),
                           height: 50.0,
@@ -117,11 +138,15 @@ class _DiaryState extends State<Diary> {
                           child: TextButton(
                               onPressed: () {
                                 setState(() {
-                                  todos.add(input);
+                                  todos.add(
+                                    input,
+                                  );
+                                  todosDate.add(DateFormat('yyyy-MM-dd')
+                                      .format(_selectedDateTime));
                                 });
                                 Navigator.of(context).pop();
                               },
-                              child: Text(
+                              child: const Text(
                                 "Add",
                                 style: TextStyle(color: Colors.white),
                               )),
@@ -137,4 +162,13 @@ class _DiaryState extends State<Diary> {
       ),
     );
   }
+
+  void onDateChangeCallback(DateTime selectDate) {
+    setState(() {
+      _selectedDateTime = selectDate;
+    });
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }
