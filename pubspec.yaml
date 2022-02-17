@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^2.0.11
   timeline_tile: ^2.0.0
   flutter_timeline: ^0.3.0
+  flutter_cupertino_date_picker: ^1.0.26+2
+  cupertino_date_textbox: ^1.0.1
 
 dev_dependencies:
   flutter_test:

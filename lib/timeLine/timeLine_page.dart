@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:flutter_timeline/indicator_position.dart';
+import 'package:obo_project/diary/diary_page.dart';
 
 class TimeLine extends StatefulWidget {
   const TimeLine({Key? key}) : super(key: key);
@@ -74,7 +75,7 @@ class _TimeLineState extends State<TimeLine> {
         indicatorOffset: Offset(0, 24),
         child: TimelineEventCard(
           padding: const EdgeInsets.only(left: 60, top: 70),
-          title: Text("timeline"),
+          title: Text("timeline "),
           content: Text("${DateTime.now()}"),
         ),
         indicator: TimelineDots.of(context).circleIcon);
