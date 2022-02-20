@@ -1,9 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
-
 import 'package:obo_project/timeline/timeline_page.dart';
 import 'package:obo_project/diary/diary_page.dart';
+import 'package:obo_project/alarm/alarm_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -77,12 +77,12 @@ class _MainPageState extends State<MainPage> {
       elevation: 0.0,
       actions: <Widget>[
         IconButton(
-          onPressed: () {},
-          icon: const Image(
-              width: 25, image: AssetImage('./assets/report_icon.png')),
-        ),
-        IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) {
+              return Alarm();
+            }));
+          },
           icon: const Image(
               width: 25, image: AssetImage('./assets/alarm_icon.png')),
         ),
@@ -126,7 +126,9 @@ class _MainPageState extends State<MainPage> {
         body: const Center(
             child: TabBarView(children: <Widget>[
           Tab(
-            child: TimeLine(),
+            child: TimeLine(
+              todoTitle: '',
+            ),
           ),
           Tab(
             child: Diary(),

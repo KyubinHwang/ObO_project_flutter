@@ -64,6 +64,14 @@ class _DiaryState extends State<Diary> with AutomaticKeepAliveClientMixin {
                             onChanged: (bool? value) {
                               _setState(() {
                                 _isChecked = value!;
+                                if (_isChecked) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TimeLine(
+                                                todoTitle: '${todos[index]}',
+                                              )));
+                                } else {}
                               });
                             },
                           )
@@ -86,15 +94,16 @@ class _DiaryState extends State<Diary> with AutomaticKeepAliveClientMixin {
                   topRight: Radius.circular(20.0)),
             ),
             builder: (BuildContext context) => Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 75),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 55),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Add Task!!",
+                      "할일을 추가해주세요!",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 35,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold),
                     ),
                     Form(
