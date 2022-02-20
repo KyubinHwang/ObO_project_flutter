@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:flutter_timeline/indicator_position.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:obo_project/diary/diary_page.dart';
 
 class TimeLine extends StatefulWidget {
-  const TimeLine({Key? key}) : super(key: key);
-
+  const TimeLine({Key? key, required this.todoTitle}) : super(key: key);
+  final String todoTitle;
   @override
-  _TimeLineState createState() => _TimeLineState();
+  _TimeLineState createState() => _TimeLineState(todoTitle);
 }
 
-class _TimeLineState extends State<TimeLine> {
+class _TimeLineState extends State<TimeLine>
+    with AutomaticKeepAliveClientMixin {
+  late String todoTitle;
+  _TimeLineState(this.todoTitle);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addEvent,
+      floatingActionButton: SpeedDial(
+        icon: Icons.settings,
+        activeIcon: Icons.close,
         backgroundColor: Colors.white,
-        child: const Icon(
-          Icons.border_color,
-          color: Color(0xff5D4F83),
-        ),
+        foregroundColor: const Color(0xff5D4F83),
+        buttonSize: const Size(62, 62),
+        children: [
+          SpeedDialChild(
+            backgroundColor: Colors.white,
+            child: const Icon(
+              Icons.restore_outlined,
+              color: Color(0xff5D4F83),
+            ),
+            onTap: () => _addEvent(),
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.white,
+            child: const Icon(
+              Icons.border_color,
+              color: Color(0xff5D4F83),
+            ),
+            onTap: () => _addEvent(),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-          const Text(
-            "오늘의 ON",
-            style: TextStyle(
-              fontSize: 20,
-              color: Color(0xff5D4F83),
-            ),
-          ),
           _buildTimeline(),
           Align(
               alignment: Alignment(0.75, 0.0),
@@ -75,8 +90,8 @@ class _TimeLineState extends State<TimeLine> {
         indicatorOffset: Offset(0, 24),
         child: TimelineEventCard(
           padding: const EdgeInsets.only(left: 60, top: 70),
-          title: Text("timeline "),
-          content: Text("${DateTime.now()}"),
+          title: Text("${todoTitle}"),
+          content: Text("${DateFormat('yyyy-MM-dd').format(DateTime.now())}"),
         ),
         indicator: TimelineDots.of(context).circleIcon);
   }
@@ -103,4 +118,7 @@ class _TimeLineState extends State<TimeLine> {
       events.add(plainEventDisplay);
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
